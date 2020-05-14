@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is an implementation of multi-lingual Named Entity Recognition (NER) using spaCy (<https://spacy.io/>). This codebase loads Germand and English models to provide NER predictions on various user input. It will run with Google Colab, and [MLflow](https://mlflow.org/) integration is currently in progress. A proof of concept for fine-tuning these models to custom tags is also shown. 
+This is an implementation of multi-lingual Named Entity Recognition (NER) using spaCy (<https://spacy.io/>). This codebase loads German and English models to provide NER predictions on various user input. It will run with Google Colab, and [MLflow](https://mlflow.org/) integration is currently in progress. A proof of concept for fine-tuning these models to custom tags is also shown. 
 
 ## Models
 
@@ -47,7 +47,7 @@ Predictions can be made easily by creating a document:
 doc = trained_model("How do I lease a fortwo coupe?")
 ```
 
-As an example of using this to create custom entities for a company, text is extracted from [Smart](https://www.smartusa.com/) and used to train a tag "MODEL", on different car models. Here we train specifically on the **fortwo** models using 
+As an example of using this to create custom entities, for example a car model. Here text is extracted from [Smart](https://www.smartusa.com/) and used to train a custom tag "MODEL". Here we train specifically on the **fortwo** model name using training texts. Thus our entity value is "fortwo" and our entity type is "MODEL".
 
 ```
 texts = [
@@ -56,14 +56,12 @@ texts = [
     "For navigating your city, or escaping it altogether, the 2019 smart EQ fortwo features a high-tech interior.",
     "I Love the smart EQ fortwo car, it's amazing.",
     "Reviews of the smart EQ fortwo have been phenomenal! Smart EQ fortwo cars are a hit."
-    "Fortwo?",
     "Fortwo is for everyone.",
     "I am thinking of buying a fortwo coupe."
     "How much does a fortwo coupe cost?",
     "At signing, how much will be due for a new fortwo?",
     "Is fortwo the best car from Smart?",
-    "Fortwo is a type of Smart car."
-    "The fortwo model is sick!"   
+    "Fortwo is a type of Smart car."  
 ]
 ```
 
@@ -78,7 +76,7 @@ doc = trained_model(sentence)                       # make prediction
 **Output** (positions, entity, label):
 ```
 for ent in doc.ents:
-    print(doc, ent.start, ent.end, ent.text, ent.label_)
+    print(ent.start, ent.end, ent.text, ent.label_)
 
 # 5 6 fortwo MODEL
 ```
