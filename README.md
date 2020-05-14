@@ -1,4 +1,4 @@
-# Named Entity Recognition with Spacy
+# Named Entity Recognition with spaCy
 
 ## Introduction
 
