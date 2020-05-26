@@ -19,7 +19,7 @@ spaCy allows the user to interface with several core language models. Currently,
 - Dutch	
 - Portuguese	
 
-Additionally, spaCy interfaces with [Hugging Face's](https://explosion.ai/blog/spacy-transformers) implementation of several transformers, including BERT, GPT-2, and XLNet. 
+Additionally, spaCy interfaces with [Hugging Face's](https://explosion.ai/blog/spacy-transformers) implementation of several transformers, including BERT, GPT-2, and XLNet. Shown here, however, is only the statistical model. This statistical model does a reasonable job and is very fast to train. 
 
 ### Custom Tags
 
@@ -36,7 +36,7 @@ model = train_model(
 )
 ```
 
-Additionally, an example of training a new label "Model" is shown by creating a custom pattern. Two methods, manual and parsing, are used to add this pattern. It is also shown how the `GoldParse` functionality is used to parse documents and add revision data. 
+Additionally, an example of training a new label "COMPANY" is shown by creating a custom pattern. Two methods, manual and parsing, are used to add this pattern. It is also shown how the `GoldParse` functionality is used to parse documents and add revision data. 
 
 ### Usage
 
@@ -44,24 +44,24 @@ By training on this new named entity, predictions are possible with the saved NE
 
 Predictions can be made easily by creating a document:
 ```
-doc = trained_model("How do I lease a fortwo coupe?")
+doc = trained_model("Why do people like Tesla?")
 ```
 
-As an example of using this to create custom entities, for example a car model. Here text is extracted from [Smart](https://www.smartusa.com/) and used to train a custom tag "MODEL". Here we train specifically on the **fortwo** model name using training texts. Thus our entity value is "fortwo" and our entity type is "MODEL".
+As an example of using this to create custom entities, for example a car model. Here text is created to train a custom tag "COMPANY". Here we train specifically on the **tesla** company name using these training texts. Thus our entity value is "tesla" and our entity type is "COMPANY".
 
 ```
 texts = [
-    "Lease a 2019 smart EQ fortwo coupe.",
-    "You can lease a 2019 smart EQ fortwo cabrio for as little as $199/month.",
-    "For navigating your city, or escaping it altogether, the 2019 smart EQ fortwo features a high-tech interior.",
-    "I Love the smart EQ fortwo car, it's amazing.",
-    "Reviews of the smart EQ fortwo have been phenomenal! Smart EQ fortwo cars are a hit."
-    "Fortwo is for everyone.",
-    "I am thinking of buying a fortwo coupe."
-    "How much does a fortwo coupe cost?",
-    "At signing, how much will be due for a new fortwo?",
-    "Is fortwo the best car from Smart?",
-    "Fortwo is a type of Smart car."  
+    "Tesla does not currently have full self-driving, but is level 2 ready.",
+    "Investors are mixed on Tesla stock.",
+    "If you want to buy a Tesla, it will likely cost you more than $50,000.",
+    "People like Tesla because it is a environmentally friendly company.",
+    "Tesla really moved the needle on EV adoption."
+    "Tesla?",
+    "The new Gigafactory in Shanghai was built by Tesla in about a year.",
+    "Elon Musk was very close to failing with Tesla.",
+    "Tesla is also heavily focused on battery and solar products.",
+    "The supercharger network created by Tesla is helping support EV adoption."
+    "A new battery is in development from Tesla for over 1 million miles."   
 ]
 ```
 
@@ -69,7 +69,7 @@ Then we parse out instances of this tag, train the model, and run predictions.
 
 **Make a prediction**:
 ```
-sentence = "How do I lease a fortwo coupe?" 
+sentence = "Can you tell that I love Tesla?" 
 doc = trained_model(sentence)                       # make prediction
 ```
 
@@ -78,7 +78,7 @@ doc = trained_model(sentence)                       # make prediction
 for ent in doc.ents:
     print(ent.start, ent.end, ent.text, ent.label_)
 
-# 5 6 fortwo MODEL
+# Can you tell that I love Tesla? 6 7 Tesla COMPANY
 ```
 
 
